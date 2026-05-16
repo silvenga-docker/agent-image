@@ -55,8 +55,8 @@ echo "Installing/Upgrading OpenCode..."
 bun add -g opencode-ai@latest --no-summary
 bun update -g --latest opencode-ai@latest
 
+echo "Running OpenCode postinstall script..."
 # https://github.com/anomalyco/opencode/issues/27906
-
 pushd "${BUN_INSTALL}/install/global/node_modules/opencode-ai"
 node postinstall.mjs
 popd
@@ -64,3 +64,8 @@ popd
 echo "Installing/Upgrading OpenChamber..."
 bun add -g @openchamber/web@latest --no-summary
 bun update -g --latest @openchamber/web@latest
+
+echo "Removing stale OpenChamber pids..."
+rm -rf "$HOME/.config/openchamber/run"
+
+echo "Agent setup complete."
