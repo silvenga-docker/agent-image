@@ -87,7 +87,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.asc] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-    google-chrome-stable
+    google-chrome-stable \
+    && rm -f /etc/ssh/ssh_config.d/20-systemd-ssh-proxy.conf
 
 COPY rootfs/ /
 
