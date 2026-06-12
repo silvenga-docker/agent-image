@@ -27,6 +27,9 @@ if ! command -v cargo-binstall &>/dev/null; then
     echo "${BINSTALL_SHA256}  /tmp/install-binstall.sh" | sha256sum -c -
     bash /tmp/install-binstall.sh
     rm /tmp/install-binstall.sh
+
+    # Needed possibly due to a bug in cargo-binstall where the binary is not marked executable after installation.
+    chmod +x /home/agent/.cargo/bin/cargo-binstall
 else
     echo "cargo-binstall already installed."
 fi
