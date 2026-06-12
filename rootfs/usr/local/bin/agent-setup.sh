@@ -68,4 +68,7 @@ bun update -g --latest @openchamber/web@latest
 echo "Removing stale OpenChamber pids..."
 rm -rf "$HOME/.config/openchamber/run"
 
+echo "Clearing stale OpenCode plugin cache..."
+rm -rf "$HOME/.cache/opencode/packages"
+
 echo "Agent setup complete."
