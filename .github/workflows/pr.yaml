@@ -25,29 +25,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Start container
-        run: docker compose up -d
-
-      - name: Wait for container to be healthy
-        timeout-minutes: 10
-        run: |
-          while true; do
-            status=$(docker inspect -f "{{.State.Health.Status}}" agent 2>/dev/null)
-            case "$status" in
-              healthy)
-                echo "Container is healthy"
-                exit 0
-                ;;
-              unhealthy)
-                echo "::error::Container became unhealthy"
-                docker compose logs 2>/dev/null || true
-                exit 1
-                ;;
-              *)
-                sleep 2
-                ;;
-            esac
-          done
+      - name: Start and wait for healthy container
+        run: docker compose up --force-recreate --renew-anon-volumes --wait --wait-timeout 600
 
       - name: Cleanup
         if: always()
