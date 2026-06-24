@@ -28,22 +28,26 @@ jobs:
       - name: Start container
         run: docker compose up -d
 
-      - name: Wait for container startup
-        run: sleep 5
-
-      - name: Verify container is still running
+      - name: Wait for container to be healthy
+        timeout-minutes: 10
         run: |
-          if ! status=$(docker inspect -f '{{.State.Status}}' agent 2>&1); then
-            echo "::error::Failed to inspect container: $status"
-            docker compose logs 2>/dev/null || true
-            exit 1
-          fi
-          if [ "$status" != "running" ]; then
-            echo "::error::Container exited with status: $status"
-            docker compose logs
-            exit 1
-          fi
-          echo "Container is healthy (status: $status)"
+          while true; do
+            status=$(docker inspect -f "{{.State.Health.Status}}" agent 2>/dev/null)
+            case "$status" in
+              healthy)
+                echo "Container is healthy"
+                exit 0
+                ;;
+              unhealthy)
+                echo "::error::Container became unhealthy"
+                docker compose logs 2>/dev/null || true
+                exit 1
+                ;;
+              *)
+                sleep 2
+                ;;
+            esac
+          done
 
       - name: Cleanup
         if: always()
