@@ -106,14 +106,14 @@ if [ ! -L "$ANDROID_HOME/ndk/current" ]; then
     retry 3 5 bash -c 'yes | sdkmanager --licenses' >/dev/null 2>&1 || true
 
     echo "Installing Android SDK components (build-tools 36.0.0, platform android-36, cmake 3.22.1)..."
-    retry 5 5 sdkmanager --verbose "build-tools;36.0.0" "platforms;android-36" "cmake;3.22.1" 2>&1
+    retry 5 5 sdkmanager "build-tools;36.0.0" "platforms;android-36" "cmake;3.22.1"
 
     echo "Installing latest NDK r28.x..."
-    NDK_VERSION=$(retry 5 5 sdkmanager --verbose --list 2>&1 | grep -oP 'ndk;28\.\K[0-9.]+' | sort -V | tail -1)
+    NDK_VERSION=$(retry 5 5 sdkmanager --list | grep -oP 'ndk;28\.\K[0-9.]+' | sort -V | tail -1)
     if [ -z "$NDK_VERSION" ]; then
         echo "ERROR: No NDK r28.x found in sdkmanager --list. Skipping NDK install." >&2
     else
-        retry 5 5 sdkmanager --verbose "ndk;28.${NDK_VERSION}" 2>&1
+        retry 5 5 sdkmanager "ndk;28.${NDK_VERSION}"
         ln -sfn "$ANDROID_HOME/ndk/28.${NDK_VERSION}" "$ANDROID_HOME/ndk/current"
         echo "NDK 28.${NDK_VERSION} installed, symlinked to ndk/current."
     fi

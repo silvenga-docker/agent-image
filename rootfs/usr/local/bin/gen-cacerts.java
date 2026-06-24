@@ -4,12 +4,15 @@ import java.io.FileOutputStream;
 import java.security.KeyStore;
 import java.security.cert.CertificateFactory;
 
-/// Generates a Java trust store (PKCS12) from all PEM CA certificates in /etc/ssl/certs/.
+/// Generates a Java trust store (JKS) from all PEM CA certificates in /etc/ssl/certs/.
+/// Uses JKS (not PKCS12) because Java's default truststore loading does not reliably
+/// detect PKCS12 for the cacerts file — sdkmanager fails with
+/// "trustAnchors parameter must be non-empty" on PKCS12 truststores.
 /// Single JVM invocation — far faster than spawning keytool per certificate.
 class gen_cacerts {
     public static void main(String[] args) throws Exception {
         var storepass = "changeit".toCharArray();
-        var ks = KeyStore.getInstance("PKCS12");
+        var ks = KeyStore.getInstance("JKS");
         ks.load(null, storepass);
 
         var cf = CertificateFactory.getInstance("X.509");
