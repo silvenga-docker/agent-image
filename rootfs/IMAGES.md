@@ -12,7 +12,7 @@ Agent workloads (OpenCode, OpenChamber) run as `agent` (uid 1000) inside a Debia
 ## Installed Tools
 
 **CLI**
-`git`, `curl`, `jq`, `less`, `unzip`, `7z`/`7zz`, `b3sum`, `gnupg`, `ripgrep` (`rg`), `fdfind` (`fd-find`), `file`, `xxd`, `bsdextrautils` (`hexdump`, `col`, etc.)
+`git`, `curl`, `jq`, `less`, `unzip`, `7z`/`7zz`, `xz`, `b3sum`, `gnupg`, `ripgrep` (`rg`), `fdfind` (`fd-find`), `file`, `xxd`, `bsdextrautils` (`hexdump`, `col`, etc.)
 
 **Data**
 `sqlite3`, `psql` (PostgreSQL client), `redis-cli`

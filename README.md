@@ -15,7 +15,7 @@ The goal is to enable agents with the tools they need, while also limiting the b
   - **Node**: Bun, Node LTS (via nvm).
   - **Android**: OpenJDK 21 LTS, Android SDK (cmdline-tools, build-tools, platform android-36), NDK, CMake, Gradle.
   - **Python**: Python 3.
-- **Tools**: Git, ripgrep, fd, jq, file, xxd, sqlite3, PostgreSQL client, Redis client.
+- **Tools**: Git, ripgrep, fd, jq, file, xxd, sqlite3, PostgreSQL client, Redis client, 7-Zip (`7zz`/`7z`), unzip, xz, b3sum, gnupg.
 - **Network**: nmap, mtr, tshark, tcpdump, socat, proxychains4, dnsutils.
 - **Browser**: Google Chrome stable (headless-capable, for Playwright/MCP browser tools).
 - **Agent**: [OpenCode](https://github.com/anomalyco/opencode) and [OpenChamber](https://github.com/openchamber/openchamber) pre-installed. Both are updated automatically on container start (including OpenCode packages).

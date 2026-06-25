@@ -1,11 +1,11 @@
 FROM debian:trixie-slim AS base
 
-ARG URL_7Z=https://github.com/ip7z/7zip/releases/download/26.00/7z2600-linux-x64.tar.xz
-ARG URL_7Z_SHA256=c74dc4a48492cde43f5fec10d53fb2a66f520e4a62a69d630c44cb22c477edc6
+ARG URL_7Z=https://github.com/ip7z/7zip/releases/download/26.01/7z2601-linux-x64.tar.xz
+ARG URL_7Z_SHA256=8ea0fc8a135e7b848e80a4116fe22dff56c8c4518dde1f43cce67f4e340b437a
 
-ARG S6_OVERLAY_VERSION=3.2.2.0
-ARG S6_OVERLAY_NOARCH_SHA256=85848f6baab49fb7832a5557644c73c066899ed458dd1601035cf18e7c759f26
-ARG S6_OVERLAY_X86_64_SHA256=5a09e2f1878dc5f7f0211dd7bafed3eee1afe4f813e872fff2ab1957f266c7c0
+ARG S6_OVERLAY_VERSION=3.2.3.0
+ARG S6_OVERLAY_NOARCH_SHA256=b720f9d9340efc8bb07528b9743813c836e4b02f8693d90241f047998b4c53cf
+ARG S6_OVERLAY_X86_64_SHA256=a93f02882c6ed46b21e7adb5c0add86154f01236c93cd82c7d682722e8840563
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
