@@ -81,6 +81,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     libglib2.0-dev \
     libgio-2.0-dev \
     libdbus-1-dev \
+    librsvg2-dev \
+    libsoup-3.0-dev \
     containerd.io \
     docker-ce \
     docker-ce-cli \
