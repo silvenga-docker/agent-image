@@ -76,6 +76,11 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     b3sum \
     file \
     xxd \
+    libwebkit2gtk-4.1-dev \
+    libgtk-3-dev \
+    libglib2.0-dev \
+    libgio-2.0-dev \
+    libdbus-1-dev \
     containerd.io \
     docker-ce \
     docker-ce-cli \
