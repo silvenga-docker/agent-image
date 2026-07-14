@@ -3,9 +3,9 @@ FROM debian:trixie-slim AS base
 ARG URL_7Z=https://github.com/ip7z/7zip/releases/download/26.01/7z2601-linux-x64.tar.xz
 ARG URL_7Z_SHA256=8ea0fc8a135e7b848e80a4116fe22dff56c8c4518dde1f43cce67f4e340b437a
 
-ARG S6_OVERLAY_VERSION=3.2.3.0
-ARG S6_OVERLAY_NOARCH_SHA256=b720f9d9340efc8bb07528b9743813c836e4b02f8693d90241f047998b4c53cf
-ARG S6_OVERLAY_X86_64_SHA256=a93f02882c6ed46b21e7adb5c0add86154f01236c93cd82c7d682722e8840563
+ARG S6_OVERLAY_VERSION=3.2.3.1
+ARG S6_OVERLAY_NOARCH_SHA256=43d99d266fefe32cdc1510963aaadeb211cc8450b60af27817b64af450c934be
+ARG S6_OVERLAY_X86_64_SHA256=ed72fdb3abf196472d121b026bed63b46f3443507bd2ce67df6bd187f7d4dc0a
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
