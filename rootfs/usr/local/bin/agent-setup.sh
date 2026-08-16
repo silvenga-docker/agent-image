@@ -155,4 +155,7 @@ rm -rf "$HOME/.config/openchamber/run"
 echo "Clearing stale OpenCode plugin cache..."
 rm -rf "$HOME/.cache/opencode/packages"
 
+echo "Clearing Bun install cache..."
+rm -rf "${BUN_INSTALL}/install/cache"/*
+
 echo "Agent setup complete."
