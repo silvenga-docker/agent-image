@@ -86,7 +86,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     containerd.io \
     docker-ce \
     docker-ce-cli \
-    docker-compose-plugin
+    docker-compose-plugin \
+    poppler-utils
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
