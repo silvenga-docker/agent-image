@@ -86,7 +86,11 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    poppler-utils
+    poppler-utils \
+    && printf '#include <signal.h>\n#include <stdio.h>\nint main(void){if(kill(1,SIGTERM)!=0){perror("reboot: kill");return 1;}return 0;}' > /tmp/reboot.c \
+    && gcc -O2 -o /usr/local/bin/reboot /tmp/reboot.c \
+    && setcap cap_kill=eip /usr/local/bin/reboot \
+    && rm /tmp/reboot.c
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -114,11 +118,6 @@ RUN groupadd -g 1000 agent \
     && ln -sfn /var/lib/java-cacerts/cacerts /usr/lib/jvm/java-21-openjdk-amd64/lib/security/cacerts \
     && javac -d /usr/local/bin /usr/local/bin/gen-cacerts.java \
     && rm /usr/local/bin/gen-cacerts.java
-
-RUN printf '#include <signal.h>\n#include <stdio.h>\nint main(void){if(kill(1,SIGTERM)!=0){perror("reboot: kill");return 1;}return 0;}' > /tmp/reboot.c \
-    && gcc -O2 -o /usr/local/bin/reboot /tmp/reboot.c \
-    && setcap cap_kill=eip /usr/local/bin/reboot \
-    && rm /tmp/reboot.c
 
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
     S6_KEEP_ENV=1 \
