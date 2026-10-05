@@ -10,7 +10,6 @@ ARG S6_OVERLAY_X86_64_SHA256=ed72fdb3abf196472d121b026bed63b46f3443507bd2ce67df6
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     set -xe \
-    set -xe \
     && apt-get update \
     && apt-get dist-upgrade -y \
     && apt-get install -y --no-install-recommends \
