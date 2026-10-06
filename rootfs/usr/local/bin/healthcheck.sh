@@ -11,6 +11,6 @@ check_http() {
 }
 
 # OpenChamber is the terminal service in the boot chain — it depends on
-# opencode, which depends on dockerd-ready, which depends on agent-init.
+# dockerd-ready, which depends on agent-init, and manages OpenCode's lifecycle.
 # If OpenChamber is serving, the entire chain has completed successfully.
-check_http openchamber http://localhost:3000/
+check_http openchamber http://localhost:3000/health
