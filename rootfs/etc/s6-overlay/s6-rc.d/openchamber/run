@@ -3,6 +3,4 @@ with-contenv
 export HOME /home/agent
 s6-setuidgid agent
 cd /home/agent
-export OPENCODE_HOST http://localhost:4096
-export OPENCODE_SKIP_START true
 openchamber serve --port 3000 --host 0.0.0.0 --foreground

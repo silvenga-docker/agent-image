@@ -4,7 +4,6 @@ services:
     image: agent-image
     container_name: agent
     ports:
-      - "4097:4096"
       - "3001:3000"
     volumes:
       - agent-home:/home/agent

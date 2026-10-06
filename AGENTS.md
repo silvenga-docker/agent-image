@@ -6,9 +6,9 @@ Guide for AI agents editing this repository. This repo defines a hardened Docker
 
 - Base: Debian trixie-slim
 - Init: s6-overlay manages services
-- User: Container runs as root; application services (opencode, openchamber, agent-init) run as `agent` (uid 1000) via `s6-setuidgid`
+- User: Container runs as root; application services (openchamber, agent-init) run as `agent` (uid 1000) via `s6-setuidgid`
 - Volume: `/home/agent` is a persistent volume
-- Services (s6 boot order): `agent-init` (oneshot) → `dockerd` (longrun) → `dockerd-ready` (oneshot) → `opencode` (longrun, :4096) → `openchamber` (longrun, :3000)
+- Services (s6 boot order): `agent-init` (oneshot) → `dockerd` (longrun) → `dockerd-ready` (oneshot) → `openchamber` (longrun, :3000; manages OpenCode's lifecycle, OpenCode listens on localhost only)
 - External deps: [OpenCode](https://github.com/anomalyco/opencode), [OpenChamber](https://github.com/btriapitsyn/openchamber) - pinned by version in Dockerfile/agent-setup.sh
 
 ## Security Model - HIGH SENSITIVITY
@@ -21,7 +21,7 @@ Sysbox runtime 0-day exploits are out of scope. The threat model assumes Sysbox 
 
 ### Hard Rules
 
-- Non-root services: Container runs as root for dockerd; opencode, openchamber, and agent-init drop to `agent` (uid 1000) via `s6-setuidgid`. Never install sudo/doas/su.
+- Non-root services: Container runs as root for dockerd; openchamber (and the OpenCode instance it manages) and agent-init drop to `agent` (uid 1000) via `s6-setuidgid`. Never install sudo/doas/su.
 - No privilege escalation: Never add sudo, doas, su, or any root-escalation mechanism.
 - TLS-only downloads: Use `https://` for all fetched URLs. Use `--proto '=https' --tlsv1.2` for curl where supported.
 - No secrets in image: Never bake API keys, tokens, or credentials into the Dockerfile or rootfs.

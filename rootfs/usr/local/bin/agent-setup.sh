@@ -73,10 +73,10 @@ nvm alias default lts/*
 nvm use default
 ln -sfn "$(dirname "$(dirname "$(nvm which default)")")" "$NVM_DIR/current"
 
-if [ ! -d "$BUN_INSTALL" ]; then
-    echo "Installing Bun..."
-    BUN_VERSION=1.1.20
-    BUN_SHA256=6cb70ad0349a2cecc94ab2113cd1d07a5779aae77c71cab1cf20c881ac0c0775
+BUN_VERSION=1.4.2
+BUN_SHA256=36368faef7527875d5ffa52e53cd48021741f2a83eb6208a8dd64068d422a913
+if [ ! -d "$BUN_INSTALL" ] || ! bun --version 2>/dev/null | grep -qx "$BUN_VERSION"; then
+    echo "Installing/Updating Bun ${BUN_VERSION}..."
     curl -fsSL "https://github.com/oven-sh/bun/releases/download/bun-v${BUN_VERSION}/bun-linux-x64.zip" -o /tmp/bun-linux-x64.zip
     echo "${BUN_SHA256}  /tmp/bun-linux-x64.zip" | sha256sum -c -
     unzip -q /tmp/bun-linux-x64.zip -d /tmp/bun-extract
@@ -135,19 +135,16 @@ else
     echo "Gradle already installed."
 fi
 
-echo "Installing/Upgrading OpenCode..."
-bun add -g opencode-ai@latest --no-summary
-bun update -g --latest opencode-ai@latest
+echo "Removing old opencode-ai package (same bin name as @opencode/cli)..."
+bun remove -g opencode-ai || true
 
-echo "Running OpenCode postinstall script..."
-# https://github.com/anomalyco/opencode/issues/27906
-pushd "${BUN_INSTALL}/install/global/node_modules/opencode-ai"
-node postinstall.mjs
-popd
+echo "Installing/Upgrading OpenCode..."
+bun install -g --trust @opencode/cli --no-summary
+bun update -g --latest @opencode/cli --no-summary
 
 echo "Installing/Upgrading OpenChamber..."
 bun add -g @openchamber/web@latest --no-summary
-bun update -g --latest @openchamber/web@latest
+bun update -g --latest @openchamber/web
 
 echo "Removing stale OpenChamber pids..."
 rm -rf "$HOME/.config/openchamber/run"
