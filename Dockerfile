@@ -64,6 +64,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     redis-tools \
     python3-pip \
     pipx \
+    aria2 \
     whois \
     nmap \
     mtr-tiny \

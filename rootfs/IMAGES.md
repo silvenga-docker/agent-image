@@ -18,7 +18,7 @@ Agent workloads (OpenCode, OpenChamber) run as `agent` (uid 1000) inside a Debia
 `sqlite3`, `psql` (PostgreSQL client), `redis-cli`
 
 **Network**
-`openssh-client`, `nmap`, `mtr`, `socat`, `proxychains4`, `tshark`, `tcpdump` (`dumpcap` has `cap_net_raw`), `dig`/`nslookup`, `whois`
+`aria2c` (aria2), `openssh-client`, `nmap`, `mtr`, `socat`, `proxychains4`, `tshark`, `tcpdump` (`dumpcap` has `cap_net_raw`), `dig`/`nslookup`, `whois`
 
 **Browser**
 `google-chrome-stable` - Google Chrome, headless-capable; used by Playwright/MCP browser tools
@@ -26,14 +26,14 @@ Agent workloads (OpenCode, OpenChamber) run as `agent` (uid 1000) inside a Debia
 **Build**
 `gcc`, `g++`, `clang`, `lld`, `cmake`, `make`, `pkg-config`, `libssl-dev`, `libclang-dev`, `libwebkit2gtk-4.1-dev`, `libgtk-3-dev`, `libglib2.0-dev`, `libgio-2.0-dev`, `libdbus-1-dev`, `librsvg2-dev`, `libsoup-3.0-dev`
 
-**Runtimes** (user-space, persistent in `/home/agent`)
-- `python3`, `pip` (`python3-pip`), `pipx`
+**Runtimes** (Rust, Node, and Bun persist in `/home/agent`)
+- Python (system-wide, apt-installed): `python3`, `pip` (`python3-pip`), `pipx`
 - Rust / Cargo: `~/.cargo` - `cargo`, `rustc`, `rustup`, `cargo-binstall`, `sccache`
 - Node LTS / npm / npx: `~/.nvm/current/bin`
 - Bun: `~/.bun` - `bun`, `bunx`
 
-**Android** (user-space, persistent in `/home/agent/Android` and `/home/agent/.local`)
-- OpenJDK 21 LTS: `java`, `javac` (`$JAVA_HOME/bin`)
+**Android** (SDK, NDK, and Gradle persist in `/home/agent`)
+- OpenJDK 21 LTS (system-wide, apt-installed): `java`, `javac` (`$JAVA_HOME/bin`)
 - Android SDK: `sdkmanager`, `avdmanager` (`$ANDROID_HOME/cmdline-tools/latest/bin`)
 - Build-tools 36.0.0: `aapt2`, `d8`, etc. (`$ANDROID_HOME/build-tools/36.0.0`)
 - NDK r28.x: `ANDROID_NDK_HOME` / `ANDROID_NDK_ROOT` point to `$ANDROID_HOME/ndk/current` (symlink to the installed version)
